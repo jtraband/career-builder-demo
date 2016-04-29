@@ -10,11 +10,12 @@ export class PieChartComponent implements OnInit {
     constructor(private _chartService: GoogleChartService, private _elementRef: ElementRef) {
         
     }
+    
     @Input() data: any; // DataTable
     @Input() options: {};
 
     ngOnInit() {
-        this._chartService.draw(this.drawChart.bind(this));
+        this._chartService.init().then(this.drawChart.bind(this));
     }
     
     drawChart() {

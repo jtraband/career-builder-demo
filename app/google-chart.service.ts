@@ -6,6 +6,7 @@ export class GoogleChartService {
     public google: any;
     public charts: any;
     private _initialized: boolean;
+    
     constructor( ) {
         this.google = (<any> window).google;
         this.charts = this.google.charts;
@@ -13,7 +14,7 @@ export class GoogleChartService {
         this.google.charts.setOnLoadCallback(this.init.bind(this));
     }
     
-    public init(): Promise<any> {
+    init(): Promise<any> {
        if (this._initialized) return Promise.resolve();
        return new Promise( (resolve, reject) => {
            this.google.charts.setOnLoadCallback(() => {
@@ -23,18 +24,19 @@ export class GoogleChartService {
        });
     }
     
-    public draw(drawFn): Promise<any> {
-       return this.init().then( drawFn);
-    }
-    
     get DataTable() {
-        if (!this._initialized) {
-            throw new Error("You must call init() first.")
-        } 
+        this.checkInit();
         return this.google.visualization.DataTable;
     }
     
     get PieChart() {
+        this.checkInit();
         return this.google.visualization.PieChart;
+    }
+    
+    private checkInit() {
+        if (!this._initialized) {
+            throw new Error("You must call init() first.")
+        }         
     }
 } 

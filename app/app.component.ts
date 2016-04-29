@@ -6,8 +6,8 @@ import {PieChartComponent} from './pie-chart.component';
     selector: 'my-app',
     template: `
     <h1>Career Builder Chart Examples</h1>
-    <div id="pie-chart"></div>
     <pie-chart *ngIf="pieData" [data]="pieData" [options]="pieOptions"></pie-chart>
+    <div id="pie-chart"></div>
     `,
     directives: [PieChartComponent]
     
@@ -34,7 +34,7 @@ export class AppComponent {
             ]);
 
             // Set chart options
-            this.pieOptions = {'title':'Pizza Topping Popularity',
+            this.pieOptions = {'title':'Pizza Topping Popularity - using PieChartComponent',
                         'width':400,
                         'height':300};
 
@@ -45,11 +45,10 @@ export class AppComponent {
     drawPieChart() {
         // using the chartService directly
         var chart = new this._chartService.PieChart(document.getElementById('pie-chart'));
-        chart.draw(this.pieData, this.pieOptions);
-    }
-    
-    drawPieChartWithDirective() {
-        
+        var altPieOptions = {'title':'Pizza Topping Popularity - using ChartService directly',
+                        'width':400,
+                        'height':300};
+        chart.draw(this.pieData, altPieOptions);
     }
     
 
