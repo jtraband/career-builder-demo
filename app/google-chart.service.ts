@@ -24,6 +24,11 @@ export class GoogleChartService {
        });
     }
     
+    get visualization() {
+        this.checkInit();
+        return this.google.visualization;
+    }
+    
     get DataTable() {
         this.checkInit();
         return this.google.visualization.DataTable;
@@ -32,6 +37,11 @@ export class GoogleChartService {
     get PieChart() {
         this.checkInit();
         return this.google.visualization.PieChart;
+    }
+    
+    get BarChart() {
+        this.checkInit();
+        return this.google.visualization.BarChart;
     }
     
     private checkInit() {

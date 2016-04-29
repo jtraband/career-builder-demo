@@ -3,10 +3,10 @@ import { Component, Input, OnInit, ElementRef }   from 'angular2/core';
 import { GoogleChartService} from './google-chart.service';
 
 @Component({
-    selector: 'pie-chart',
+    selector: 'bar-chart',
     template: `<div id="chart"></div>`
 })
-export class PieChartComponent implements OnInit {
+export class BarChartComponent implements OnInit {
     constructor(private _chartService: GoogleChartService, private _elementRef: ElementRef) {
     }
     
@@ -19,7 +19,7 @@ export class PieChartComponent implements OnInit {
     
     drawChart() {
         var div = this._elementRef.nativeElement.firstElementChild;
-        var chart = new this._chartService.PieChart(div);
+        var chart = new this._chartService.BarChart(div);
         chart.draw(this.data, this.options);
     }
 
