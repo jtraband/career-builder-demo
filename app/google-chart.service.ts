@@ -11,6 +11,11 @@ export class GoogleChartService {
         this.google = (<any> window).google;
         this.charts = this.google.charts;
         this.google.charts.load('current', {packages: ['corechart']});
+        // Next line would be needed if you wanted to use Google's Material charts ( still in Beta)
+        // alongside the 'classic' charts.
+        // this.google.charts.load('current', {packages: ['corechart', 'bar']});
+        
+
         this.google.charts.setOnLoadCallback(this.init.bind(this));
     }
     
@@ -22,6 +27,10 @@ export class GoogleChartService {
                this._initialized = true;
            })
        });
+    }
+    
+    arrayToDataTable(arr: any[]) {
+        return this.google.visualization.arrayToDataTable(arr);
     }
     
     get visualization() {
@@ -44,9 +53,16 @@ export class GoogleChartService {
         return this.google.visualization.BarChart;
     }
     
+    get ColumnChart() {
+        this.checkInit();
+        return this.google.visualization.ColumnChart;
+    }
+    
     private checkInit() {
         if (!this._initialized) {
             throw new Error("You must call init() first.")
         }         
     }
+    
+
 } 
