@@ -22,7 +22,7 @@ export class GoogleChartService {
            this._charts.setOnLoadCallback(() => {
                this._initialized = true;
                resolve();
-           })
+           });
        });
     }
     

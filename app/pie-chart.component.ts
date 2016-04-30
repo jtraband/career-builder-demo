@@ -10,7 +10,7 @@ export class PieChartComponent implements OnInit {
     constructor(private _chartService: GoogleChartService, private _elementRef: ElementRef) {
     }
     
-    @Input() data: any; // DataTable
+    @Input() data: any; // Note: typescript seems to have issues with typing input as google.visualization.DataTable;
     @Input() options: google.visualization.PieChartOptions;
 
     ngOnInit() {

@@ -10,7 +10,7 @@ export class ColumnChartComponent implements OnInit {
     constructor(private _chartService: GoogleChartService, private _elementRef: ElementRef) {
     }
     
-    @Input() data: any;
+    @Input() data: any; // DataTable
     @Input() options: google.visualization.ColumnChartOptions;
 
     ngOnInit() {

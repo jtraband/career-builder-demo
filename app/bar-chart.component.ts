@@ -10,7 +10,7 @@ export class BarChartComponent implements OnInit {
     constructor(private _chartService: GoogleChartService, private _elementRef: ElementRef) {
     }
     
-    @Input() data: any; // google.visualization.DataTable;
+    @Input() data: any; // DataTable;
     @Input() options: google.visualization.BarChartOptions;
 
     ngOnInit() {
