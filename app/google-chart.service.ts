@@ -23,19 +23,15 @@ export class GoogleChartService {
        if (this._initialized) return Promise.resolve();
        return new Promise( (resolve, reject) => {
            this.google.charts.setOnLoadCallback(() => {
-               resolve();
                this._initialized = true;
+               resolve();
            })
        });
     }
     
     arrayToDataTable(arr: any[]) {
-        return this.google.visualization.arrayToDataTable(arr);
-    }
-    
-    get visualization() {
         this.checkInit();
-        return this.google.visualization;
+        return this.google.visualization.arrayToDataTable(arr);
     }
     
     get DataTable() {
@@ -56,6 +52,16 @@ export class GoogleChartService {
     get ColumnChart() {
         this.checkInit();
         return this.google.visualization.ColumnChart;
+    }
+    
+    get LineChart() {
+        this.checkInit();
+        return this.google.visualization.LineChart;
+    }
+    
+    get visualization() {
+        this.checkInit();
+        return this.google.visualization;
     }
     
     private checkInit() {
