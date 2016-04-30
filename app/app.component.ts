@@ -8,13 +8,17 @@ import {LineChartComponent} from './line-chart.component';
 @Component({
     selector: 'my-app',
     template: `
-    <h1>Career Builder Chart Examples</h1>
-    <column-chart *ngIf="topIndustriesData" [data]="topIndustriesData" [options]="topIndustriesOptions"></column-chart>
-    <bar-chart *ngIf="militaryData" [data]="militaryData" [options]="militaryOptions"></bar-chart>
-    <bar-chart *ngIf="companyData" [data]="companyData" [options]="companyOptions"></bar-chart>
-    <line-chart *ngIf="lineData" [data]="lineData" [options]="lineOptions"></line-chart>
-    <pie-chart *ngIf="pieData" [data]="pieData" [options]="pieOptions"></pie-chart>
-    <div id="pie-chart"></div>
+    <h1>Career Builder/Angular2 Chart Examples</h1>
+    
+    <bar-chart    *ngIf="militaryData" [data]="militaryData" [options]="militaryOptions" style="display: inline-block"></bar-chart>
+    <bar-chart    *ngIf="companyData" [data]="companyData" [options]="companyOptions" style="display: inline-block"></bar-chart>
+    <column-chart *ngIf="topIndustriesData" [data]="topIndustriesData" [options]="topIndustriesOptions" style="display: inline-block" ></column-chart>
+    
+    <div></div>
+    
+    <line-chart *ngIf="lineData" [data]="lineData" [options]="lineOptions" style="display: inline-block" ></line-chart>
+    <pie-chart  *ngIf="pieData" [data]="pieData" [options]="pieOptions" style="display: inline-block"></pie-chart>
+    <div id="pie-chart" style="display: inline-block" ></div>
     `,
     directives: [PieChartComponent, BarChartComponent, ColumnChartComponent, LineChartComponent]
 
@@ -23,16 +27,16 @@ export class AppComponent {
 
     private militaryData: google.visualization.DataTable;
     private militaryOptions: google.visualization.BarChartOptions;
-    
+
     private companyData: google.visualization.DataTable;
     private companyOptions: google.visualization.BarChartOptions;
-    
+
     private topIndustriesData: google.visualization.DataTable;
     private topIndustriesOptions: any | google.visualization.ColumnChartOptions; // any needed because d.ts for ColumnChartOptions is not yet complete
-    
+
     private pieData: google.visualization.DataTable;
     private pieOptions: google.visualization.PieChartOptions;
-    
+
     private lineData: google.visualization.DataTable;
     private lineOptions: google.visualization.LineChartOptions;
 
@@ -48,7 +52,7 @@ export class AppComponent {
             this.initTopIndustriesData();
             this.initLineData();
             this.initPieData();
-            this.drawPieChart();
+            this.drawPieChart(); // alternate method of explicitly drawing on an html element
         });
     }
 
@@ -101,6 +105,7 @@ export class AppComponent {
     }
 
     private initTopIndustriesData() {
+        // quoted values are the annotation legends for each bar. - in a real app you would compose these from the actual value.
         this.topIndustriesData = this._chartService.arrayToDataTable([
             ['Title', 'General Medical', { role: 'annotation' }, 'Employment Planning', { role: 'annotation' }, 'Office Administration', { role: 'annotation' }],
             ['Total', 172561, '172,561', 264352, '264,352', 616402, '616,402'],
@@ -111,7 +116,7 @@ export class AppComponent {
             width: 400,
             height: 400,
             annotations: { alwaysOutside: true }, // moves column annotations on top of the bars.
-            targetAxisIndex: 1,
+            targetAxisIndex: 1,   // will only be needed if you change position to 'left'
             legend: { position: 'top', maxLines: 6 },
         }
     }
@@ -147,9 +152,9 @@ export class AppComponent {
         ]);
 
         this.pieOptions = {
-            'title': 'Pizza Topping Popularity - using PieChartComponent',
-            'width': 400,
-            'height': 300
+            title: 'Pizza Topping Popularity - using PieChartComponent',
+            width: 400,
+            height: 400
         };
     }
 
@@ -157,9 +162,9 @@ export class AppComponent {
         // using the chartService directly
         var chart = new this._chartService.PieChart(document.getElementById('pie-chart'));
         var altPieOptions = {
-            'title': 'Pizza Topping Popularity - using ChartService directly',
-            'width': 400,
-            'height': 300
+            title: 'Pizza Topping Popularity - using ChartService directly',
+            width: 400,
+            height: 400
         };
         chart.draw(this.pieData, altPieOptions);
     }
