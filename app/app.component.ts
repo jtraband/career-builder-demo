@@ -21,16 +21,20 @@ import {LineChartComponent} from './line-chart.component';
 })
 export class AppComponent {
 
-    private militaryData: any;
-    private militaryOptions: any;
-    private companyData: any;
-    private companyOptions: any;
-    private topIndustriesData: any;
-    private topIndustriesOptions: any;
-    private pieData: any;
-    private pieOptions: any;
-    private lineData: any;
-    private lineOptions: any;
+    private militaryData: google.visualization.DataTable;
+    private militaryOptions: google.visualization.BarChartOptions;
+    
+    private companyData: google.visualization.DataTable;
+    private companyOptions: google.visualization.BarChartOptions;
+    
+    private topIndustriesData: google.visualization.DataTable;
+    private topIndustriesOptions: google.visualization.ColumnChartOptions;
+    
+    private pieData: google.visualization.DataTable;
+    private pieOptions: google.visualization.PieChartOptions;
+    
+    private lineData: google.visualization.DataTable;
+    private lineOptions: google.visualization.LineChartOptions;
 
     // injects GoogleChartService
     constructor(private _chartService: GoogleChartService) {
@@ -64,12 +68,12 @@ export class AppComponent {
 
         ]);
         this.militaryOptions = {
-            'title': 'Military',
-            'width': 400,
-            'height': 400,
-            'legend': 'none',  // suppress the legend for this one.
-            'bar': {
-                'groupWidth': '80%' // this controls how close together the bars are.
+            title: 'Military',
+            width: 400,
+            height: 400,
+            legend: 'none',  // suppress the legend for this one.
+            bar: {
+                groupWidth: '80%' // this controls how close together the bars are.
             }
         };
     }
@@ -89,10 +93,10 @@ export class AppComponent {
         ]);
 
         this.companyOptions = {
-            'title': 'Company',
-            'width': 400,
-            'height': 400,
-            'legend': 'bottom'
+            title: 'Company',
+            width: 400,
+            height: 400,
+            legend: 'bottom'
         }
     }
 
@@ -102,9 +106,9 @@ export class AppComponent {
             ['Total', 172561, '172,561', 264352, '264,352', 616402, '616,402'],
         ]);
         this.topIndustriesOptions = {
-            'title': 'Top Industries',
-            'width': 400,
-            'height': 400,
+            title: 'Top Industries',
+            width: 400,
+            height: 400,
             annotations: { alwaysOutside: true }, // moves column annotations on top of the bars.
             targetAxisIndex: 1,
             legend: { position: 'top', maxLines: 6 },

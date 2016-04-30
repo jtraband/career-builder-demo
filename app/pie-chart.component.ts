@@ -11,7 +11,7 @@ export class PieChartComponent implements OnInit {
     }
     
     @Input() data: any; // DataTable
-    @Input() options: {};
+    @Input() options: google.visualization.PieChartOptions;
 
     ngOnInit() {
         this._chartService.init().then( () => this.drawChart());

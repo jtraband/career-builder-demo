@@ -10,8 +10,8 @@ export class ColumnChartComponent implements OnInit {
     constructor(private _chartService: GoogleChartService, private _elementRef: ElementRef) {
     }
     
-    @Input() data: any; // DataTable
-    @Input() options: {};
+    @Input() data: any;
+    @Input() options: google.visualization.ColumnChartOptions;
 
     ngOnInit() {
         this._chartService.init().then( () => this.drawChart());

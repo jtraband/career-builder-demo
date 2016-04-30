@@ -11,7 +11,7 @@ export class LineChartComponent implements OnInit {
     }
     
     @Input() data: any; // DataTable
-    @Input() options: {};
+    @Input() options: google.visualization.LineChartOptions;
 
     ngOnInit() {
         this._chartService.init().then( () => this.drawChart());
