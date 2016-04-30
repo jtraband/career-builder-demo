@@ -28,7 +28,7 @@ export class AppComponent {
     private companyOptions: google.visualization.BarChartOptions;
     
     private topIndustriesData: google.visualization.DataTable;
-    private topIndustriesOptions: google.visualization.ColumnChartOptions;
+    private topIndustriesOptions: any | google.visualization.ColumnChartOptions; // any needed because d.ts for ColumnChartOptions is not yet complete
     
     private pieData: google.visualization.DataTable;
     private pieOptions: google.visualization.PieChartOptions;
@@ -105,6 +105,7 @@ export class AppComponent {
             ['Title', 'General Medical', { role: 'annotation' }, 'Employment Planning', { role: 'annotation' }, 'Office Administration', { role: 'annotation' }],
             ['Total', 172561, '172,561', 264352, '264,352', 616402, '616,402'],
         ]);
+        // 
         this.topIndustriesOptions = {
             title: 'Top Industries',
             width: 400,
