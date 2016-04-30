@@ -2,28 +2,30 @@ import {Component} from 'angular2/core';
 import {GoogleChartService} from './google-chart.service';
 import {PieChartComponent} from './pie-chart.component';
 import {BarChartComponent} from './bar-chart.component';
+import {ColumnChartComponent} from './column-chart.component';
 
 @Component({
     selector: 'my-app',
     template: `
     <h1>Career Builder Chart Examples</h1>
-    <bar-chart *ngIf="militaryBarData" [data]="militaryBarData" [options]="militaryBarOptions"></bar-chart>
-    <bar-chart *ngIf="companyBarData" [data]="companyBarData" [options]="companyBarOptions"></bar-chart>
+    <column-chart *ngIf="topIndustriesData" [data]="topIndustriesData" [options]="topIndustriesOptions"></column-chart>
+    <bar-chart *ngIf="militaryData" [data]="militaryData" [options]="militaryOptions"></bar-chart>
+    <bar-chart *ngIf="companyData" [data]="companyData" [options]="companyOptions"></bar-chart>
     <pie-chart *ngIf="pieData" [data]="pieData" [options]="pieOptions"></pie-chart>
     <div id="pie-chart"></div>
     `,
-    directives: [PieChartComponent, BarChartComponent]
+    directives: [PieChartComponent, BarChartComponent, ColumnChartComponent]
 
 })
 export class AppComponent {
     private pieData: any;
     private pieOptions: any;
-    private militaryBarData: any;
-    private militaryBarOptions: any;
-    private companyBarData: any;
-    private companyBarOptions: any;
-    private topIndustriesBarData: any;
-    private topIndustriesBarOptions: any;
+    private militaryData: any;
+    private militaryOptions: any;
+    private companyData: any;
+    private companyOptions: any;
+    private topIndustriesData: any;
+    private topIndustriesOptions: any;
 
     constructor(private _chartService: GoogleChartService) {
 
@@ -33,29 +35,41 @@ export class AppComponent {
         this._chartService.init().then(() => {
             this.initPieData();
             this.drawPieChart();
-            this.initMilitaryBarData();
-            this.initCompanyBarData();
+            this.initMilitaryData();
+            this.initCompanyData();
+            this.initTopIndustriesData();
         });
     }
     
-    private initTopIndustriesBarData() {
-        
+    private initTopIndustriesData() {
+        this.topIndustriesData = this._chartService.arrayToDataTable([
+            ['Title', 'General Medical', {role: 'annotation'}, 'Employment Planning', {role: 'annotation'},  'Office Administration', {role: 'annotation'}],
+            ['Total', 172561, '172,561', 264352, '264,352', 616402, '616,402'],
+         ]);
+          this.topIndustriesOptions =  {
+            'title': 'Top Industries',
+            'width': 400,
+            'height': 400,
+            annotations: { alwaysOutside: true }, // moves column annotations on top of the bars.
+            targetAxisIndex: 1,
+            legend: { position: 'top', maxLines: 6 },
+        }
     }
     
-    private initCompanyBarData() {
+    private initCompanyData() {
         // 1st col is y axis group labels
         // 2nd col is 'demand' value
         // 3rd col is 'demand' annotation ( to show value inside of bar)
         // 4th col is 'supply' value
         // 5th col is 'supply' annotation ( to show value inside of bar)
-        this.companyBarData = this._chartService.arrayToDataTable([
+        this.companyData = this._chartService.arrayToDataTable([
           ['Year', 'Demand', { role: 'annotation' }, 'Supply', {role: 'annotation'}],
           ['2016', 12000, '12000', 9000, '9000'],
           ['2015', 6000, '6000', 5000, '5000'],
           ['2014', 2000, '2000', 1000, '1000'],
         ]);
        
-        this.companyBarOptions =  {
+        this.companyOptions =  {
             'title': 'Company',
             'width': 400,
             'height': 400,
@@ -63,8 +77,8 @@ export class AppComponent {
         }
     }
     
-    private initMilitaryBarData() {
-        this.militaryBarData = this._chartService.arrayToDataTable([
+    private initMilitaryData() {
+        this.militaryData = this._chartService.arrayToDataTable([
             ['CountTitle', 'Count',  { role: 'annotation' } ],
             ['574', 574, 'Veteran' ],
             ['113', 113, 'No Obligation'],
@@ -78,7 +92,7 @@ export class AppComponent {
             ['4', 35, 'Filled']
             
         ]);
-       this.militaryBarOptions = {
+       this.militaryOptions = {
             'title': 'Military',
             'width': 400,
             'height': 400,
